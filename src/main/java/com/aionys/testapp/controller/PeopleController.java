@@ -1,11 +1,13 @@
 package com.aionys.testapp.controller;
 
 import com.aionys.testapp.domain.Person;
+import com.aionys.testapp.dto.PersonDto;
 import com.aionys.testapp.service.PeopleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @Controller
 @RequestMapping("/people")
 public class PeopleController {
@@ -24,13 +26,18 @@ public class PeopleController {
 //    }
 
     @GetMapping()
-    public String newPerson(@ModelAttribute("person") Person person){
-        return "people/main";
+    public String newPerson(@ModelAttribute("person") PersonDto person){
+return "Test";
     }
 
     @PostMapping
-    public String createNew(@ModelAttribute("person") Person person){
-        peopleService.save(person);
-        return "redirect:/people";
+    public void createNew(@RequestBody PersonDto person){
+        Person p = new Person();
+        p.setName(person.name);
+        p.setSurname(person.surname);
+        p.setPatronymic(person.patronymic);
+        p.setDateOfBirth(person.dateOfBirth);
+
+        peopleService.save(p);
     }
 }

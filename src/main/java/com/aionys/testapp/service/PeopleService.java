@@ -15,9 +15,9 @@ public class PeopleService {
         this.peopleRepository = peopleRepository;
     }
 
-    public Person findById(Long id){
-        return peopleRepository.findById(id).orElse(null);
-    }
+//    public Person findById(Long id){
+//        return peopleRepository.findById(id).orElse(null);
+//    }
 
     public Person save(Person person){
         return peopleRepository.save(person);
