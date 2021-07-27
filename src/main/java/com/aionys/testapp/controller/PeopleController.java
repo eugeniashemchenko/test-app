@@ -3,7 +3,10 @@ package com.aionys.testapp.controller;
 import com.aionys.testapp.domain.Person;
 import com.aionys.testapp.dto.PersonDto;
 import com.aionys.testapp.service.PeopleService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,11 +15,13 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/people")
 public class PeopleController {
 
+    private final ModelMapper modelMapper;
     private final PeopleService peopleService;
 
     @Autowired
-    public PeopleController(PeopleService peopleService) {
+    public PeopleController(PeopleService peopleService, ModelMapper modelMapper) {
         this.peopleService = peopleService;
+        this.modelMapper = modelMapper;
     }
 
 //    @GetMapping("/{id}")
@@ -27,17 +32,25 @@ public class PeopleController {
 
     @GetMapping()
     public String newPerson(@ModelAttribute("person") PersonDto person){
-return "Test";
+        return "Test";
     }
 
-    @PostMapping
-    public void createNew(@RequestBody PersonDto person){
-        Person p = new Person();
-        p.setName(person.name);
-        p.setSurname(person.surname);
-        p.setPatronymic(person.patronymic);
-        p.setDateOfBirth(person.dateOfBirth);
+//    @PostMapping("/main")
+//    public void createNew(@RequestBody Person person){
+//        peopleService.save(person);
+//    }
 
-        peopleService.save(p);
+    @PostMapping("/main")
+    public ResponseEntity<PersonDto> createNew(@RequestBody PersonDto dto){
+
+        // convert DTO to Entity
+        Person postRequest = modelMapper.map(dto, Person.class);
+
+        Person person = peopleService.saveNew(postRequest);
+
+        // entity to DTO
+        PersonDto postResponse = modelMapper.map(person, PersonDto.class);
+
+        return ResponseEntity.ok().body(postResponse);
     }
 }

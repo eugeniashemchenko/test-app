@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class PeopleService {
+public class PeopleService  {
 
     private final PeopleRepository peopleRepository;
 
@@ -19,7 +19,7 @@ public class PeopleService {
 //        return peopleRepository.findById(id).orElse(null);
 //    }
 
-    public Person save(Person person){
+    public Person saveNew(Person person){
         return peopleRepository.save(person);
     }
 
