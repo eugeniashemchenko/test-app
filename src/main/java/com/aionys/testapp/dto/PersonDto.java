@@ -12,5 +12,8 @@ public class PersonDto {
     private String patronymic;
     private Date dateOfBirth;
 
+    public String getSurame() {
+        return surname;
+    }
 
 }

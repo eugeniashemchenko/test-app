@@ -86,4 +86,16 @@ public class Person {
     public int hashCode() {
         return Objects.hash(id, name, surname, patronymic, dateOfBirth);
     }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", patronymic='" + patronymic + '\'' +
+                ", dateOfBirth=" + dateOfBirth +
+                '}';
+    }
+
 }
