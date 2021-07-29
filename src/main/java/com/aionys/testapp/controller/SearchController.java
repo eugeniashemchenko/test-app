@@ -6,7 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.io.IOException;
+//import java.io.IOException;
 
 @Controller
 @RequestMapping("/people")
@@ -21,8 +21,9 @@ public class SearchController {
 
 
     @GetMapping("/get")
-    public void getDto(Long id) throws IOException {
+    public String getDto(Long id) {
         String s = searchingService.getDto(63L).toString();
         System.out.println(s);
+        return  s;
     }
 }

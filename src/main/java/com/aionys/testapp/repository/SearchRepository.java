@@ -1,10 +1,11 @@
 package com.aionys.testapp.repository;
 
-import com.aionys.testapp.domain.Person;
 import com.aionys.testapp.dto.PersonDto;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface SearchRepository extends JpaRepository<Person, Long> {
+@Repository
+public interface SearchRepository extends JpaRepository<PersonDto, Long> {
 
 
 }
