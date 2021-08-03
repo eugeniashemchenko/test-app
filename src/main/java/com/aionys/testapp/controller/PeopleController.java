@@ -5,10 +5,11 @@ import com.aionys.testapp.dto.PersonDto;
 import com.aionys.testapp.service.PeopleService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @Controller
@@ -24,21 +25,13 @@ public class PeopleController {
         this.modelMapper = modelMapper;
     }
 
-//    @GetMapping("/{id}")
-//    public String findById(@PathVariable("id") long id, Model model) {
-//        model.addAttribute("person", peopleService.findById(id));
-//        return "people/main";
-//    }
+    @GetMapping("/all")
+    @ResponseBody
+    public List<Person> allPeople(){
 
-    @GetMapping()
-    public String newPerson(@ModelAttribute("person") PersonDto person){
-        return "Test";
+        return peopleService.allPeople();
+
     }
-
-//    @PostMapping("/main")
-//    public void createNew(@RequestBody Person person){
-//        peopleService.save(person);
-//    }
 
     @PostMapping("/main")
     public ResponseEntity<PersonDto> createNew(@RequestBody PersonDto dto){
@@ -53,4 +46,11 @@ public class PeopleController {
 
         return ResponseEntity.ok().body(postResponse);
     }
+
+    @GetMapping("/all/{id}")
+    @ResponseBody
+    public void delete(@PathVariable(value = "id") Long id) {
+        peopleService.delete(id);
+    }
+
 }
